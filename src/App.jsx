@@ -12,8 +12,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={`/`} element={<Login />} />
-          <Route path={`/noteList/`} element={<NoteList />} />
-          <Route path={`/addNote/`} element={<AddNote />} />
+          <Route path={`/notelist/`} element={<NoteList />} />
+          <Route path={`/addnote/`} element={<AddNote />} />
           <Route path={`/*/`} element={<NotFound />} />
         </Routes>
       </BrowserRouter>

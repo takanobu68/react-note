@@ -16,13 +16,13 @@ import {
 import { auth, db } from '../../lib/firebase';
 
 const AddNote = () => {
-  const [title, setTitle] = useState(' ');
-  const [content, setContent] = useState(' ');
+  const [title, setTitle] = useState(undefined);
+  const [content, setContent] = useState(undefined);
 
   const navigate = useNavigate();
 
   const createNote = async () => {
-    await addDoc(collection(db, 'posts'), {
+    await addDoc(collection(db, 'notes'), {
       title: title || 'no title',
       content: content || 'no content',
       modDate: Date.now(),
