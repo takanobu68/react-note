@@ -16,8 +16,8 @@ import {
 import { auth, db } from '../../lib/firebase';
 
 const AddNote = () => {
-  const [title, setTitle] = useState(undefined);
-  const [content, setContent] = useState(undefined);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const navigate = useNavigate();
 
