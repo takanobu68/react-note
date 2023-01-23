@@ -10,7 +10,7 @@ import {
 import { serverTimestamp } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({ notes }) => {
+const Sidebar = ({ notes, activeNote, setActiveNote }) => {
   return (
     <Box overflowY="scroll" w="30%" h="100vh" border="1px solid #ddd">
       <Flex justifyContent="space-between" alignItems="center" p="5">
@@ -39,11 +39,7 @@ const Sidebar = ({ notes }) => {
               <Text fontSize="xl" as="b">
                 {note.title}
               </Text>
-              <Button
-                colorScheme="blue"
-                variant="outline"
-                onClick={() => onDeleteNote(note.id)}
-              >
+              <Button colorScheme="blue" variant="outline">
                 削除
               </Button>
             </Flex>
