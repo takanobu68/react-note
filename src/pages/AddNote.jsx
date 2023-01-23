@@ -63,7 +63,7 @@ const AddNote = () => {
         />
       </Stack>
       <Button
-        // w={40}
+        w={40}
         colorScheme="blue"
         size="lg"
         m="auto"
