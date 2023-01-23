@@ -7,10 +7,9 @@ import {
   Divider,
   Text,
 } from '@chakra-ui/react';
-import { serverTimestamp } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({ notes, activeNote, setActiveNote }) => {
+const Sidebar = ({ notes, onDeleteNote, activeNote, setActiveNote }) => {
   return (
     <Box overflowY="scroll" w="30%" h="100vh" border="1px solid #ddd">
       <Flex justifyContent="space-between" alignItems="center" p="5">
@@ -39,7 +38,11 @@ const Sidebar = ({ notes, activeNote, setActiveNote }) => {
               <Text fontSize="xl" as="b">
                 {note.title}
               </Text>
-              <Button colorScheme="blue" variant="outline">
+              <Button
+                colorScheme="blue"
+                variant="outline"
+                onClick={() => onDeleteNote(note.id)}
+              >
                 削除
               </Button>
             </Flex>
