@@ -24,6 +24,21 @@ const NoteList = () => {
     setNotes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
+  const getActiveNote = () => {
+    return notes.find((note) => note.id === activeNote);
+  };
+
+  const onUpdateNote = (updatedNote) => {
+    const updatedNotesArray = notes.map((note) => {
+      if (note.id === updatedNote.id) {
+        return updatedNote;
+      } else {
+        return note;
+      }
+    });
+    setNotes(updatedNotesArray);
+  };
+
   return (
     <Flex w="100%" h="100vh" bg="green.50">
       <Sidebar
@@ -32,7 +47,7 @@ const NoteList = () => {
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
-      <Main />
+      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
     </Flex>
   );
 };

@@ -8,9 +8,47 @@ import {
   Divider,
   Heading,
 } from '@chakra-ui/react';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
+
 import ReactMarkdown from 'react-markdown';
 
-const Main = () => {
+const Main = ({ activeNote, onUpdateNote }) => {
+  const onEditNote = (key, value) => {
+    onUpdateNote({
+      ...activeNote,
+      [key]: value,
+    });
+  };
+
+  const handleEdit = () => {
+    const editData = async () => {
+      const nowData = doc(db, 'notes', activeNote.id);
+
+      await updateDoc(nowData, {
+        title: activeNote.title,
+        content: activeNote.content,
+        modDate: Date.now(),
+      });
+    };
+    editData();
+  };
+
+  if (!activeNote) {
+    return (
+      <Box
+        w="70%"
+        h="100vh"
+        lineHeight="100vh"
+        textAlign="center"
+        fontSize="2rem"
+        color="gray.600"
+      >
+        Noteが選択されていません
+      </Box>
+    );
+  }
+
   return (
     <Flex
       w="70%"
@@ -24,23 +62,31 @@ const Main = () => {
       </Button>
       <Stack spacing={5} py={5} px={100}>
         <Input
-          placeholder="タイトルを入力してください。"
           outline="1px solid teal"
+          value={activeNote.title}
+          onChange={(e) => {
+            onEditNote('title', e.target.value);
+          }}
         />
         <Textarea
-          placeholder="ノート内容を記入してください。（マークダウン形式で入力できます。）"
           size="lg"
           resize="None"
           h="30vh"
           outline="1px solid teal"
+          value={activeNote.content}
+          onChange={(e) => {
+            onEditNote('content', e.target.value);
+          }}
         />
       </Stack>
-      <Button colorScheme="blue" size="lg" p={5} m="auto">
+      <Button colorScheme="blue" size="lg" p={5} m="auto" onClick={handleEdit}>
         編集
       </Button>
       <Divider my={1} />
       <Stack h="43vh" bg="gray.100" spacing={2} py={2} px={50}>
-        <Heading as="h2" size="md" m={3} h={3}></Heading>
+        <Heading as="h2" size="md" m={3} h={3}>
+          {activeNote.title}
+        </Heading>
         <Box
           bg="white"
           m={5}
@@ -49,7 +95,7 @@ const Main = () => {
           border="1px solid #ddd"
           h="40vh"
         >
-          <ReactMarkdown></ReactMarkdown>
+          <ReactMarkdown>{activeNote.content}</ReactMarkdown>
         </Box>
       </Stack>
     </Flex>
