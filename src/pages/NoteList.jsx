@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar';
 
 const NoteList = () => {
   const [notes, setNotes] = useState([]);
+  const [activeNote, setActiveNote] = useState(false);
 
   useEffect(() => {
     const getNotes = async () => {
@@ -18,7 +19,11 @@ const NoteList = () => {
 
   return (
     <Flex w="100%" h="100vh" bg="green.50">
-      <Sidebar notes={notes} />
+      <Sidebar
+        notes={notes}
+        activeNote={activeNote}
+        setActiveNote={setActiveNote}
+      />
 
       <div className="app-main">
         <div className="app-main-note-edit">

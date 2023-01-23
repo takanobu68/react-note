@@ -7,9 +7,10 @@ import {
   Divider,
   Text,
 } from '@chakra-ui/react';
+import { serverTimestamp } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({ notes }) => {
+const Sidebar = ({ notes, activeNote, setActiveNote }) => {
   return (
     <Box overflowY="scroll" w="30%" h="100vh" border="1px solid #ddd">
       <Flex justifyContent="space-between" alignItems="center" p="5">
@@ -23,7 +24,7 @@ const Sidebar = ({ notes }) => {
 
       {notes.map((note) => (
         <Box
-          bg="white"
+          bg={note.id === activeNote ? 'gray.200' : 'white'}
           w="m"
           p={0.5}
           borderRadius="md"
@@ -31,6 +32,7 @@ const Sidebar = ({ notes }) => {
           border="1px solid #ddd"
           m="0.5"
           key={note.id}
+          onClick={() => setActiveNote(note.id)}
         >
           <Stack spacing={5} py={5} px={8}>
             <Flex justifyContent="space-between" alignItems="center">
