@@ -1,10 +1,24 @@
 import { Flex } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../lib/firebase';
+
 import Sidebar from '../components/Sidebar';
 
 function App() {
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    const getNotes = async () => {
+      const data = await getDocs(collection(db, 'notes'));
+      setNotes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getNotes();
+  }, []);
+
   return (
     <Flex w="100%" h="100vh" bg="green.50">
-      <Sidebar />
+      <Sidebar notes={notes} />
 
       <div className="app-main">
         <div className="app-main-note-edit">

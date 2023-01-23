@@ -8,7 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-const Sidebar = () => {
+const Sidebar = ({ notes }) => {
   return (
     <Box overflowY="scroll" w="30%" h="100vh" border="1px solid #ddd">
       <Flex justifyContent="space-between" alignItems="center" p="5">
@@ -17,104 +17,39 @@ const Sidebar = () => {
         </Heading>
         <Button colorScheme="twitter">追加</Button>
       </Flex>
-      <Box
-        bg="white"
-        w="m"
-        p={0.5}
-        borderRadius="md"
-        shadow="md"
-        border="1px solid #ddd"
-      >
-        <Stack spacing={5} py={5} px={8}>
-          <Flex justifyContent="space-between" alignItems="center">
-            <Text fontSize="xl" as="b">
-              タイトル
-            </Text>
-            <Button colorScheme="blue" variant="outline">
-              削除
-            </Button>
-          </Flex>
-          <Divider my={5} />
-          <p>
-            コンテントzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-          </p>
-          <small>最後の修正日：xxx</small>
-        </Stack>
-      </Box>
-      <Box bg="white" w="m" p={2} borderRadius="md" shadow="md">
-        <Stack spacing={5} py={4} px={10}>
-          <Flex justifyContent="space-between" alignItems="center">
-            <strong>タイトル</strong>
-            <Button colorScheme="blue" variant="outline">
-              削除
-            </Button>
-          </Flex>
-          <Divider my={10} />
-          <p>
-            コンテントzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-          </p>
-          <small>最後の修正日：xxx</small>
-        </Stack>
-      </Box>
-      <Box bg="white" w="m" p={2} borderRadius="md" shadow="md">
-        <Stack spacing={5} py={4} px={10}>
-          <Flex justifyContent="space-between" alignItems="center">
-            <strong>タイトル</strong>
-            <Button colorScheme="blue" variant="outline">
-              削除
-            </Button>
-          </Flex>
-          <Divider my={10} />
-          <p>
-            コンテントzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-          </p>
-          <small>最後の修正日：xxx</small>
-        </Stack>
-      </Box>
-      <Box
-        bg="white"
-        w="m"
-        p={2}
-        border="1px solid #ddd"
-        borderRadius="md"
-        shadow="md"
-      >
-        <Stack spacing={5} py={4} px={10}>
-          <div className="sidebar-note-title">
-            <strong>タイトル</strong>
-            <Button colorScheme="blue" variant="outline">
-              削除
-            </Button>
-          </div>
-          <Divider my={10} />
-          <p>
-            コンテントzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-          </p>
-          <small>最後の修正日：xxx</small>
-        </Stack>
-      </Box>
-      <Box
-        bg="white"
-        w="m"
-        p={2}
-        border="1px solid #ddd"
-        borderRadius="md"
-        shadow="md"
-      >
-        <Stack spacing={5} py={4} px={10}>
-          <div className="sidebar-note-title">
-            <strong>タイトル</strong>
-            <Button colorScheme="blue" variant="outline">
-              削除
-            </Button>
-          </div>
-          <Divider my={10} />
-          <p>
-            コンテントzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzsssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-          </p>
-          <small>最後の修正日：xxx</small>
-        </Stack>
-      </Box>
+
+      {notes.map((note) => (
+        <Box
+          bg="white"
+          w="m"
+          p={0.5}
+          borderRadius="md"
+          shadow="md"
+          border="1px solid #ddd"
+          m="0.5"
+          key={note.id}
+        >
+          <Stack spacing={5} py={5} px={8}>
+            <Flex justifyContent="space-between" alignItems="center">
+              <Text fontSize="xl" as="b">
+                {note.title}
+              </Text>
+              <Button colorScheme="blue" variant="outline">
+                削除
+              </Button>
+            </Flex>
+            <Divider my={5} />
+            <p>{note.content}</p>
+            <Divider my={5} />
+            <small>
+              {new Date(note.modDate).toLocaleDateString('ja-JP', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            </small>
+          </Stack>
+        </Box>
+      ))}
     </Box>
   );
 };
