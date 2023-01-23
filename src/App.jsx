@@ -1,36 +1,23 @@
-import { Flex } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 
-import Sidebar from '../components/Sidebar';
+import Login from './pages/Login';
+import NoteList from './pages/NoteList';
+import AddNote from './pages/AddNote';
+import NotFound from './pages/NotFound';
 
 function App() {
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    const getNotes = async () => {
-      const data = await getDocs(collection(db, 'notes'));
-      setNotes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getNotes();
-  }, []);
-
   return (
-    <Flex w="100%" h="100vh" bg="green.50">
-      <Sidebar notes={notes} />
-
-      <div className="app-main">
-        <div className="app-main-note-edit">
-          <input id="title" type="text" />
-          <textarea id="content" placeholder="ノート内容を記入"></textarea>
-        </div>
-        <div className="app-main-note-preview">
-          <h1 className="preview-title">title</h1>
-          <div className="markdown-preview">test</div>
-        </div>
-      </div>
-    </Flex>
+    <ChakraProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path={`/`} element={<Login />} />
+          <Route path={`/noteList/`} element={<NoteList />} />
+          <Route path={`/addNote/`} element={<AddNote />} />
+          <Route path={`/*/`} element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }
 export default App;

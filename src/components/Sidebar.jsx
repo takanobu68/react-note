@@ -7,6 +7,7 @@ import {
   Divider,
   Text,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({ notes }) => {
   return (
@@ -15,7 +16,9 @@ const Sidebar = ({ notes }) => {
         <Heading as="h1" size="2xl">
           NoteBook
         </Heading>
-        <Button colorScheme="twitter">追加</Button>
+        <Button colorScheme="twitter">
+          <Link to="/AddNote">追加</Link>
+        </Button>
       </Flex>
 
       {notes.map((note) => (
