@@ -17,8 +17,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const loginInWithGoogle = () => {
-    signInWithPopup(auth, provider).then((result) => {
-      localStorage.setItem('isAuth', true);
+    signInWithPopup(auth, provider).then(() => {
       navigate('/notelist');
     });
   };
@@ -41,29 +40,13 @@ export default function Login() {
           p={8}
         >
           <Stack>
-            <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" />
-            </FormControl>
-            <FormControl id="password">
-              <FormLabel>Password</FormLabel>
-              <Input type="password" />
-            </FormControl>
-            <Stack spacing={10}>
+            <Stack>
               <Stack
                 direction={{ base: 'column', sm: 'row' }}
                 align={'start'}
                 justify={'space-between'}
               ></Stack>
-              <Button
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}
-              >
-                Sign in
-              </Button>
+
               <Button
                 bg={'blue.400'}
                 color={'white'}
@@ -72,7 +55,7 @@ export default function Login() {
                 }}
                 onClick={loginInWithGoogle}
               >
-                Sign in With Google
+                Log in With Google
               </Button>
             </Stack>
           </Stack>

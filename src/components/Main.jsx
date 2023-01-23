@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -9,11 +10,14 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
+import { db, auth } from '../../lib/firebase';
+import { signOut } from 'firebase/auth';
 
 import ReactMarkdown from 'react-markdown';
 
 const Main = ({ activeNote, onUpdateNote }) => {
+  const navigate = useNavigate();
+
   const onEditNote = (key, value) => {
     onUpdateNote({
       ...activeNote,
@@ -32,6 +36,12 @@ const Main = ({ activeNote, onUpdateNote }) => {
       });
     };
     editData();
+  };
+
+  const logOutGoogle = () => {
+    signOut(auth).then(() => {
+      navigate('/');
+    });
   };
 
   if (!activeNote) {
@@ -57,8 +67,16 @@ const Main = ({ activeNote, onUpdateNote }) => {
       flexDirection="column"
       border="1px solid #ddd"
     >
-      <Button colorScheme="teal" size="lg" p={3} mt={5} ml="auto" mr={5}>
-        ログアウト
+      <Button
+        colorScheme="teal"
+        size="lg"
+        p={3}
+        mt={5}
+        ml="auto"
+        mr={5}
+        onClick={logOutGoogle}
+      >
+        Log out
       </Button>
       <Stack spacing={5} py={5} px={100}>
         <Input
